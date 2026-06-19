@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>rapformer | The Generator</title>
     <style>
-        /* CSS Variables for easy theming */
+        /* CSS Variables */
         :root {
             --primary: #fff;
             --bg: #000000;
@@ -13,7 +13,6 @@
             --text-muted: #888888;
         }
 
-        /* Animated Monochrome Mesh Background (Inspired by neat.jpg) */
         body {
             background-color: var(--bg);
             color: var(--text-main);
@@ -26,7 +25,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
         /* The liquid movement layer */
         body::before {
             content: "";
@@ -47,7 +45,6 @@
             z-index: -1;
             pointer-events: none;
         }
-
         @keyframes waveFlow {
             0% {
                 transform: translate(0, 0) rotate(0deg) scale(1);
@@ -71,7 +68,7 @@
         /* Header Branding */
         header {
             margin-bottom: 40px;
-            border-bottom: 4px solid var(--primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
             padding-bottom: 20px;
         }
         
@@ -110,14 +107,13 @@
             float: right;
         }
 
-        /* Liquid Glass Input Fields */
+        /* Glass Input Fields */
         textarea {
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-main);
             font-family: inherit;
             font-size: 1.3rem;
@@ -125,14 +121,15 @@
             min-height: 140px;
             resize: vertical;
             box-sizing: border-box;
-            border-radius: 6px;
+            border-radius: 12px;
             box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), 
-                        0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+                        0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
         }
 
         textarea:focus {
             outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         /* Sliders & Controls Layout */
@@ -144,16 +141,13 @@
         }
 
         .slider-box {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 20px;
-            border-radius: 6px;
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.05), 
-                        0 8px 32px 0 rgba(0, 0, 0, 0.5);
-            transition: border-color 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
         }
 
         input[type=range] {
@@ -168,6 +162,7 @@
             background-color: var(--primary);
             color: var(--bg);
             border: none;
+            border-radius: 12px;
             padding: 24px;
             font-size: 1.5rem;
             font-weight: 900;
@@ -183,38 +178,46 @@
         }
 
         button:disabled {
-            background-color: #222222;
+            background-color: rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             cursor: not-allowed;
         }
 
-        /* The Output Area Look */
+        /* The Output Area (Apple Music Style) */
         #output-section {
-            margin-top: 40px;
-            background-color: var(--primary);
-            color: var(--bg);
+            display: none; /* Hidden until generated */
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(40px); 
+            -webkit-backdrop-filter: blur(40px); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.2);
             padding: 40px;
-            display: none; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            margin-top: 40px;
         }
 
         .output-label {
             font-weight: 900;
             text-transform: uppercase;
             font-size: 0.9rem;
-            border-bottom: 2px solid rgba(0,0,0,0.2);
+            border-bottom: 1px solid rgba(255,255,255,0.2);
             padding-bottom: 10px;
             margin-bottom: 20px;
             letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.6);
         }
 
         #lyrics-display {
-            font-size: 1.4rem;
-            font-weight: 500;
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.4;
+            letter-spacing: -0.02em;
+            color: rgba(255, 255, 255, 0.95); 
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             white-space: pre-wrap; 
-            line-height: 1.6;
         }
-        
+
         @media (max-width: 600px) {
             .controls-grid { grid-template-columns: 1fr; }
         }
@@ -223,21 +226,19 @@
 <body>
 
     <div class="container">
-        <!-- Branding Header -->
         <header>
             <h1>rapformer</h1>
             <div class="subtitle">14M Params • 500K Words • Zero-Shot Generation</div>
         </header>
 
-        <!-- Configuration Panel -->
         <main>
             <label for="seed">Start Phrase / Context</label>
-            <textarea id="seed" placeholder="Drop a starting bar... (e.g. 'This one's from zwix!')"></textarea>
+            <textarea id="seed" placeholder="Drop a starting verse... (e.g. 'This one's from zwix!')"></textarea>
 
             <div class="controls-grid">
                 <div class="slider-box">
-                    <label for="temp">Temperature <span id="temp-val" class="val-display">0.8</span></label>
-                    <input type="range" id="temp" min="0.1" max="1.5" step="0.05" value="0.8">
+                    <label for="temp">Temperature <span id="temp-val" class="val-display">1.2</span></label>
+                    <input type="range" id="temp" min="0.1" max="1.5" step="0.05" value="1.2">
                 </div>
                 <div class="slider-box">
                     <label for="topk">Top-K <span id="topk-val" class="val-display">50</span></label>
@@ -245,9 +246,8 @@
                 </div>
             </div>
 
-            <button id="generate-btn">Generate Bars</button>
+            <button id="generate-btn">LET ME YAP!</button>
 
-            <!-- Text Generation Output Component -->
             <div id="output-section">
                 <div class="output-label">Generated Output</div>
                 <div id="lyrics-display"></div>
@@ -255,7 +255,6 @@
         </main>
     </div>
 
-    <!-- Frontend Bridge Connection Script -->
     <script>
         const tempSlider = document.getElementById('temp');
         const tempValDisplay = document.getElementById('temp-val');
@@ -282,7 +281,7 @@
             const top_k = parseInt(topkSlider.value);
 
             generateBtn.disabled = true;
-            generateBtn.textContent = "TRACKING BARS...";
+            generateBtn.textContent = "YAPPING...";
             outputSection.style.display = "none";
 
             try {
@@ -311,7 +310,7 @@
                 console.error(error);
             } finally {
                 generateBtn.disabled = false;
-                generateBtn.textContent = "GENERATE BARS";
+                generateBtn.textContent = "LET ME YAP!";
             }
         });
     </script>
