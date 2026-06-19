@@ -1,17 +1,18 @@
-# rapformer
-
-> under construction 🚧
-
+---
+title: Rapformer
+emoji: 🎵
+colorFrom: black
+colorTo: gray
+sdk: docker
+pinned: false
 ---
 
-a word-level autoregressive transformer trained on rap lyrics. built on top of [zwixGPT](https://github.com/z66x/zwixGPT).
+# Rapformer 🎧
 
----
+A custom 14M parameter Autoregressive Transformer language model trained from scratch to generate rap lyrics.
 
-> *"I used to be nice, I'd rather be"*
-> 
-> — rapformer (first ever generation | context fed: `This one's from zwix!`)
-
----
-
-more soon.
+## Tech Stack
+* **Engine:** PyTorch
+* **Tokenizer:** SentencePiece
+* **Backend:** FastAPI & Uvicorn
+* **Deployment:** Docker / Hugging Face Spaces
