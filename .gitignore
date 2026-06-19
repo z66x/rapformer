@@ -1,3 +1,15 @@
-*.pth
-*.model
-*.vocab
+# Python Environment & Cache Files
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.env
+
+# OS System Files
+.DS_Store
+Thumbs.db
+
+# Jupyter Checkpoints
+.ipynb_checkpoints/
