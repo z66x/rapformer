@@ -1,7 +1,7 @@
 ---
 title: Rapformer
 emoji: 🎵
-colorFrom: black
+colorFrom: blue
 colorTo: gray
 sdk: docker
 pinned: false
