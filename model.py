@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 from torch.nn import functional as F
 
-vocab_size = 10000
+voc_size = 10000
 block_size = 128
 n_emb = 384
 n_head = 6
